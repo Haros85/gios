@@ -1,0 +1,17 @@
+{% load static %}
+<nav class="navbar navbar-dark" style="background-color: #016ab4;">
+    <div class="row no-gutters flex-md-row position-relative">
+        <div class="col-auto d-none d-lg-block">
+            <img height="100 px" src="{% static 'admin/img/logo.svg' %}">
+        </div>
+        <div class="col p-4 d-flex flex-column position-static">
+            <h5 class="mb-0  text-light">ПОДСИСТЕМА МОНИТОРИНГА ПУБЛИКАЦИЙ</h5>
+            <h6 class="mb-1 text-light">ОИиОС УМВД России по Еврейской АО</h6>
+            <div class="text-light">Copyright<span style="color:red"> © </span> {% now "Y" %} GNU General Public License v3.0</div>
+        </div>
+    </div>
+    <nav class="my-2 my-md-0 mr-md-3  text-light">
+        <a class="p-2 text-light" href="#">Об авторе</a><span style="color:red"> | </span>
+        <a class="p-2 text-light" href="#">FAQ</a>
+    </nav>
+</nav>

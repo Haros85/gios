@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block title %}Выборка данных{% endblock %} {% block content %} {% load static %}
+<form action="{% url 'filter' %}" method="get" name="filter">
+    <div class="left-side my-4">
+        <h3 class="sear-head editContent">СМИ</h3>
+        <ul class="w3layouts-box-list">
+            {% for smi in view.get_smi %}
+                <li class="editContent">
+                    <input type="checkbox" class="checked" name="smi" value="{{ smi.id }}">
+                    <span class="span editContent">{{ smi.name }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <button type="submit">Найти</button>
+</form>
+<div style="padding-top: 20px;">
+    <h1>Результат выборки:</h1>
+    <table class="table table-bordered table-sm">
+        <caption>Количество публикаций в выборке: {{ news.count }}</caption>
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca; width: 100px;">Дата</th>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca;">СМИ</th>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca; width: 500px;">Новость</th>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca;">Ссылка</th>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca;">Ключевые слова</th>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca;">Дети</th>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca;">Категория новостей</th>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca;">Тип СМИ</th>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca;">Служба</th>
+                <th scope="col" class="text-center align-middle" style="background-color: #016ab4; border-color: #4588ca;">
+                    <a href="{% url 'export_csv' %}?date={{ date }}"><img src="{% static 'admin/img/icon-export.png' %}" width="24px" alt="Export"></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in news %}
+            <tr>
+                <th scope="row" class="text-center">{{ post.pub_date|date:"Y-m-d" }}</th>
+                <td class="text-center"><a href="{{ post.smi.url }}">{{ post.smi }}</a></td>
+                <td>{{ post.name }}</td>
+                <td><a href="{{ post.url }}">{{ post.url }}</a></td>
+                <td class="text-center">{{ post.display_key }}</td>
+                <td class="text-center">
+                    {% if post.age %}
+                    <img src="{% static 'admin/img/icon-yes.svg' %}" alt="True"> {% else %}
+                    <img src="{% static 'admin/img/icon-no.svg' %}" alt="False"> {% endif %}
+                </td>
+                <td class="text-center">{{ post.news_type }}</td>
+                <td class="text-center">{{ post.display_ts }}</td>
+                <td class="text-center">{{ post.display_dept }}</td>
+                <td class="text-center align-middle">
+                    <a href="{% url 'edit_link' post.id %}"><img src="{% static 'admin/img/icon-changelink.svg' %}" alt="Edit"></a>
+                    <a href="{% url 'del_link' post.id %}"><img src="{% static 'admin/img/icon-deletelink.svg' %}" alt="Del"></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

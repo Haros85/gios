@@ -1,0 +1,6 @@
+Django==2.2
+django-crispy-forms
+django-select2
+django-google-charts
+django-qsstats-magic
+python-dateutil

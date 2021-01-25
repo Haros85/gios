@@ -1,0 +1,17 @@
+<div class="table-responsive-xl" style="padding-top: 20px;">
+    <h1>Публикации</h1>
+    <table class="table table-striped">
+        <tbody>
+            <tr class="table-active">
+            {% for key, value in stats.items %}
+                <td class="text-center" style="width: 200px;"><div class="count">{{ value }}</div></td>
+            {% endfor %}
+            </tr>
+            <tr class="table-dark">
+            {% for key, value in stats.items %}
+                <td class="text-center"><span class="count_bottom">{{ key }}</span></td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>

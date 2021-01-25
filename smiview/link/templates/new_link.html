@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}Создать запись{% endblock %} {% block content %}{% load crispy_forms_tags %}
+<div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+        <h3>{% if news.id %} Редактировать запись {% else %} Создать запись {% endif %}</h3>
+        <hr>
+        <form method="POST" class="post-form" enctype="multipart/form-data">
+            {% csrf_token %} {{ form.non_field_errors }}
+            <div class="form-group">
+                {{ form.name|as_crispy_field }}
+                <small id="nameHelp" class="form-text text-muted">Введите название новости</small>
+            </div>
+            <div class="form-group">
+                {{ form.url|as_crispy_field }}
+                <small id="urllHelp" class="form-text text-muted">Вставьте ссылку на новость</small>
+            </div>
+            <div class="form-group col-md-3 pl-0">
+                {{ form.pub_date|as_crispy_field }}
+                <small id="dateHelp" class="form-text text-muted">Введите дату публикации</small>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ form.smi|as_crispy_field }}
+                    <small id="smiHelp" class="form-text text-muted">Выберите СМИ в котором была публикация</small>
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.news_type|as_crispy_field }}
+                    <small id="typeHelp" class="form-text text-muted">Выберите категорию новости</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ form.keywords|as_crispy_field }}
+                    <small id="keywordsHelp" class="form-text text-muted">Выберите ключевые слова</small>
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.departments|as_crispy_field }}
+                    <small id="deptHelp" class="form-text text-muted">Выберите службы, фигурирующие в новости</small>
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.age }} <label class="form-check-label" for="{{ form.age.id_for_label }}">Дети</label>
+                <small id="ageHelp" class="form-text text-muted">Если новость о несовершеннолетних</small>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                {% if news.id %} Редактировать запись {% else %} Создать запись {% endif %}
+            </button>
+        </form>
+    </div>
+    {% endblock %}
